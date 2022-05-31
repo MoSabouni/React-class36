@@ -2,10 +2,14 @@ import React from "react";
 
 function ProductsItem({ item }) {
   return (
-    <li key={item.id}>
-      <div>
-        <img alt={item.description} src={item.image} />
-        <span>{item.title}</span>
+    <li className="products-item">
+      <div className="product">
+        <img
+          alt={item.description}
+          src={item.image}
+          className="product-image"
+        />
+        <span className="product-title">{item.title}</span>
       </div>
     </li>
   );

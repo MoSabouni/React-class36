@@ -1,15 +1,22 @@
 import React from "react";
 import categoriesData from "../fake-data/all-categories";
 
-function CategoryList({ setCategory }) {
+function CategoryList({ setCategory, setActiveButton, activeButton }) {
   return (
     <div>
-      {categoriesData.map((item) => {
+      {categoriesData.map((item, index) => {
         return (
           <button
-            key={item.substring(6)}
+            key={index}
+            className={toggleActiveStyle(index, activeButton)}
             onClick={() => {
-              setCategory(item.substring(6));
+              toggleActive(
+                index,
+                activeButton,
+                setCategory,
+                setActiveButton,
+                item
+              );
             }}
           >
             {item}
@@ -19,5 +26,29 @@ function CategoryList({ setCategory }) {
     </div>
   );
 }
+
+const toggleActiveStyle = (index, activeButton) => {
+  if (activeButton === index) {
+    return "categories-btn active";
+  } else {
+    return "categories-btn inactive";
+  }
+};
+
+const toggleActive = (
+  index,
+  activeButton,
+  setCategory,
+  setActiveButton,
+  item
+) => {
+  if (activeButton === index) {
+    setCategory("all");
+    setActiveButton(null);
+  } else {
+    setCategory(item.substring(6));
+    setActiveButton(index);
+  }
+};
 
 export default CategoryList;

@@ -1,1 +1,64 @@
+.App {
+  margin: 8px;
+}
 
+.categories-btn {
+  all: unset;
+  font-weight: 700;
+  margin: 2px;
+  padding: 12px;
+}
+
+.active {
+  background-color: #bdbdc1;
+}
+
+.inactive {
+  background-color: #efeff0;
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.products-item {
+  margin: 16px;
+  width: 25%;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-image {
+  margin-bottom: auto;
+  margin-top: auto;
+  max-height: 300px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.product-title {
+  overflow: hidden;
+  padding-top: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.header {
+  font-size: 2em;
+}
+
+@media screen and (max-width: 900px) {
+  .products-item {
+    width: 33%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .products-item {
+    width: 50%;
+  }
+}

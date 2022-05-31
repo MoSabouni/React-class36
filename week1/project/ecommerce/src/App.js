@@ -7,10 +7,17 @@ import categoriesData from "./fake-data/all-categories";
 
 function App() {
   const [category, setCategory] = useState("all");
+  const [activeButton, setActiveButton] = useState({ activeButton: null });
+
   return (
     <div className="App">
       <h1>Products</h1>
-      <CategoryList setCategory={setCategory} category={category} />
+      <CategoryList
+        setCategory={setCategory}
+        category={category}
+        setActiveButton={setActiveButton}
+        activeButton={activeButton}
+      />
       <ProductsList category={category} />
     </div>
   );

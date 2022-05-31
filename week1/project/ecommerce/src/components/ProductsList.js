@@ -6,7 +6,7 @@ function ProductsList({ category }) {
   const filteredProducts = filterProducts(productsData, category);
   return (
     <div>
-      <ul>
+      <ul className="products-list">
         {filteredProducts.map((item) => {
           return <ProductsItem key={item.id} item={item} />;
         })}
