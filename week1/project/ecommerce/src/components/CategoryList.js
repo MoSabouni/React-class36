@@ -1,40 +1,47 @@
 import React from "react";
-import categoriesData from "../fake-data/all-categories";
 
-function CategoryList({ setCategory, setActiveButton, activeButton }) {
+function CategoryList({
+  setActiveButton,
+  activeButton,
+  categories,
+  setCurrentCategory,
+  isLoadingCategories,
+}) {
   const toggleActiveStyle = (index) => {
-    if (activeButton === index) {
-      return "categories-btn active";
-    } else {
-      return "categories-btn inactive";
-    }
+    return activeButton === index
+      ? "categories-btn active"
+      : "categories-btn inactive";
   };
 
-  const toggleActive = (index, item) => {
+  const toggleActive = (category, index) => {
     if (activeButton === index) {
-      setCategory("all");
+      setCurrentCategory("all");
       setActiveButton(null);
     } else {
-      setCategory(item.substring(6));
+      setCurrentCategory(category);
       setActiveButton(index);
     }
   };
 
   return (
     <div>
-      {categoriesData.map((item, index) => {
-        return (
-          <button
-            key={index}
-            className={toggleActiveStyle(index)}
-            onClick={() => {
-              toggleActive(index, item);
-            }}
-          >
-            {item}
-          </button>
-        );
-      })}
+      {isLoadingCategories ? (
+        <div> Loading categories </div>
+      ) : (
+        categories.map((category, index) => {
+          return (
+            <button
+              key={index}
+              className={toggleActiveStyle(index)}
+              onClick={() => {
+                toggleActive(category, index);
+              }}
+            >
+              {category}
+            </button>
+          );
+        })
+      )}
     </div>
   );
 }

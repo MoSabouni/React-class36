@@ -1,21 +1,38 @@
-import React from "react";
-import productsData from "../fake-data/all-products";
+import React, { useState, useEffect } from "react";
 import ProductsItem from "./ProductsItem";
 
-function ProductsList({ category }) {
-  const filterProducts = () => {
-    return category === "all"
-      ? productsData
-      : productsData.filter((item) => item.category === category);
-  };
+function ProductsList({ currentCategory }) {
+  const [products, setProducts] = useState([]);
+  const [isLoadingProdcuts, setIsLoadingProducts] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      let response;
+      setIsLoadingProducts(true);
+      if (currentCategory === "all") {
+        response = await fetch(`https://fakestoreapi.com/products`);
+      } else {
+        response = await fetch(
+          `https://fakestoreapi.com/products/category/${currentCategory}`
+        );
+      }
+      const data = await response.json();
+      setProducts(data);
+      setIsLoadingProducts(false);
+    })();
+  }, [currentCategory]);
 
   return (
     <div>
-      <ul className="products-list">
-        {filterProducts().map((item) => {
-          return <ProductsItem key={item.id} item={item} />;
-        })}
-      </ul>
+      {isLoadingProdcuts ? (
+        <div> Loading products </div>
+      ) : (
+        <ul className="products-list">
+          {products.map((item) => {
+            return <ProductsItem key={item.id} item={item} />;
+          })}
+        </ul>
+      )}
     </div>
   );
 }

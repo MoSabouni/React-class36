@@ -1,4 +1,4 @@
-.App {
+.app {
   margin: 8px;
 }
 
@@ -34,6 +34,12 @@
   height: 100%;
 }
 
+.product-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .product-image {
   margin-bottom: auto;
   margin-top: auto;
@@ -52,6 +58,12 @@
   font-size: 2em;
 }
 
+.product-details-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 900px) {
   .products-item {
     width: 33%;
@@ -60,5 +72,11 @@
 @media screen and (max-width: 600px) {
   .products-item {
     width: 50%;
+  }
+}
+
+@media (min-width: 600px) {
+  .product-details-container {
+    flex-direction: row-reverse;
   }
 }
