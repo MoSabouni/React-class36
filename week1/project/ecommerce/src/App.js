@@ -1,34 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import CategoryList from "./components/CategoryList";
 import ProductsList from "./components/ProductsList";
+import useFetch from "./hooks/useFetch";
 
 function App() {
-  const [activeButton, setActiveButton] = useState(null);
   const [currentCategory, setCurrentCategory] = useState("all");
   const [categories, setCategories] = useState([]);
-  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        `https://fakestoreapi.com/products/categories`
-      );
-      const data = await response.json();
-      setCategories(data);
-      setIsLoadingCategories(false);
-    })();
-  }, []);
+  const { loading, error } = useFetch(
+    `https://fakestoreapi.com/products/categories`,
+    setCategories
+  );
 
   return (
     <div className="app">
       <h1 className="header">Products</h1>
       <CategoryList
-        setActiveButton={setActiveButton}
-        activeButton={activeButton}
         categories={categories}
         setCurrentCategory={setCurrentCategory}
-        isLoadingCategories={isLoadingCategories}
+        loading={loading}
+        error={error}
       />
       <ProductsList currentCategory={currentCategory} />
     </div>

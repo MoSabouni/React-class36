@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
-function CategoryList({
-  setActiveButton,
-  activeButton,
-  categories,
-  setCurrentCategory,
-  isLoadingCategories,
-}) {
+function CategoryList({ categories, setCurrentCategory, loading, error }) {
+  const [activeButton, setActiveButton] = useState(null);
+
   const toggleActiveStyle = (index) => {
     return activeButton === index
       ? "categories-btn active"
@@ -23,25 +19,25 @@ function CategoryList({
     }
   };
 
+  if (loading) return <div> Loading categories... </div>;
+
+  if (error) return <div>Error loading categories : {error}</div>;
+
   return (
     <div>
-      {isLoadingCategories ? (
-        <div> Loading categories </div>
-      ) : (
-        categories.map((category, index) => {
-          return (
-            <button
-              key={index}
-              className={toggleActiveStyle(index)}
-              onClick={() => {
-                toggleActive(category, index);
-              }}
-            >
-              {category}
-            </button>
-          );
-        })
-      )}
+      {categories.map((category, index) => {
+        return (
+          <button
+            key={index}
+            className={toggleActiveStyle(index)}
+            onClick={() => {
+              toggleActive(category, index);
+            }}
+          >
+            {category}
+          </button>
+        );
+      })}
     </div>
   );
 }

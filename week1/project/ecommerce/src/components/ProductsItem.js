@@ -6,11 +6,7 @@ function ProductsItem({ item }) {
     <li className="products-item">
       <div className="product">
         <Link to={`/product/${item.id}`} className="product-link">
-          <img
-            alt={item.description}
-            src={item.image}
-            className="product-image"
-          />
+          <img alt={item.title} src={item.image} className="product-image" />
           <span className="product-title">{item.title}</span>
         </Link>
       </div>
