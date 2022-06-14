@@ -5,15 +5,20 @@ import "./index.css";
 import App from "./App";
 import ProductDetails from "./components/ProductDetails";
 import reportWebVitals from "./reportWebVitals";
+import FavoritesList from "./components/FavoritesList";
+import { FavoriteIdsProvider } from "./context/FavoriteIdsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/product/:id" element={<ProductDetails />} />
-    </Routes>
-  </Router>
+  <FavoriteIdsProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/favorites" element={<FavoritesList />} />
+      </Routes>
+    </Router>
+  </FavoriteIdsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

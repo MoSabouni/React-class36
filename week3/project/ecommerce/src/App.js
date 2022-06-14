@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./App.css";
 import CategoryList from "./components/CategoryList";
 import ProductsList from "./components/ProductsList";
+import Header from "./components/Header";
 
 function App() {
   const [currentCategory, setCurrentCategory] = useState("all");
 
   return (
     <div className="app">
-      <h1 className="header">Products</h1>
+      <Header />
       <CategoryList setCurrentCategory={setCurrentCategory} />
       <ProductsList currentCategory={currentCategory} />
     </div>

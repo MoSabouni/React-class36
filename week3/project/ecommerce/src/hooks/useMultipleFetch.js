@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 
-function useFetch(url) {
+function useMultipleFetch(url, favoriteIds) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((res) => setData(res))
+    Promise.all(favoriteIds.map((id) => fetch(`${url}${id}`)))
+      .then((responses) => {
+        Promise.all(responses.map((response) => response.json())).then((data) =>
+          setData(data)
+        );
+      })
       .catch((error) => {
         setError(error);
       })
       .finally(() => setLoading(false));
-  }, [url]);
+  }, [favoriteIds]);
 
   return [data, loading, error];
 }
 
-export default useFetch;
+export default useMultipleFetch;
